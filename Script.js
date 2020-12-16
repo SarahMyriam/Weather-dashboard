@@ -22,7 +22,34 @@ $(document).ready(function () {
         type: "GET",
         dataType: "JSON",
         //callback
-        success: createcitycard
+        success: function(data){
+          console.log("success");
+          //Current weather content for html
+          card = $("<div>").addClass("card");
+          cardBody = $("<div>").addClass("card-body").attr("id", "cardBody");
+          title = $("<h3>").addClass("card-title").text(data.name + "/" + data.sys.country + "");
+          wind = $("<p>").addClass("cart-text").text("Wind Speed: " + data.wind.speed + "MPH");
+          humid = $("<p>").addClass("card-text").text("Humidity:" + data.main.humidity + "%");
+          temp = $("<p>").addClass(" card-text").text("Temperature:" + data.main.temp + "˚F");
+          uv = $("<p>").text("UV Index:").attr("id", "UVI");
+          img = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
+      
+      
+          //api endpoints, they represent the data we get back from "Ajax"
+          lat = data.coord.lat;
+          lon = data.coord.lon;
+      
+          //Append and add to the page
+          title.append(img);
+          cardBody.append(title, temp, humid, wind, uv);
+          card.append(cardBody);
+          $("#current-date").append(card)
+      
+          getUVIndex(lat, lon);
+          getForecast(lat, lon);
+      
+      
+        }
 
       });
 
@@ -46,34 +73,7 @@ $(document).ready(function () {
   var img;
   var city;
 
-  function createcitycard(data) {
-    console.log("success");
-    //Current weather content for html
-    card = $("<div>").addClass("card");
-    cardBody = $("<div>").addClass("card-body").attr("id", "cardBody");
-    title = $("<h3>").addClass("card-title").text(data.name + "/" + data.sys.country + "");
-    wind = $("<p>").addClass("cart-text").text("Wind Speed: " + data.wind.speed + "MPH");
-    humid = $("<p>").addClass("card-text").text("Humidity:" + data.main.humidity + "%");
-    temp = $("<p>").addClass(" card-text").text("Temperature:" + data.main.temp + "˚F");
-    uv = $("<p>").text("UV Index:").attr("id", "UVI");
-    img = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
-
-
-    //api endpoints, they represent the data we get back from "Ajax"
-    lat = data.coord.lat;
-    lon = data.coord.lon;
-
-    //Append and add to the page
-    title.append(img);
-    cardBody.append(title, temp, humid, wind, uv);
-    card.append(cardBody);
-    $("#current-date").append(card)
-
-    getUVIndex(lat, lon);
-    getForecast(lat, lon);
-
-
-  }
+  
   //UVIndex
   function getUVIndex(lat, lon) {
     $.ajax({
