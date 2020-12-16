@@ -18,7 +18,7 @@ $(document).ready(function () {
 
       //ajax request get location data using the api key
       $.ajax({
-        url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=13ee4eff24825f8ba8259842109cad9c",
+        url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=13ee4eff24825f8ba8259842109cad9c",
         type: "GET",
         dataType: "JSON",
         //callback
@@ -77,7 +77,7 @@ $(document).ready(function () {
   //UVIndex
   function getUVIndex(lat, lon) {
     $.ajax({
-      url: "http://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=13ee4eff24825f8ba8259842109cad9c",
+      url: "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=13ee4eff24825f8ba8259842109cad9c",
       type: "GET",
       dataType: "JSON",
 
@@ -114,7 +114,7 @@ $(document).ready(function () {
   //forecast api
   function getForecast(lat, lon) {
     $.ajax({
-      url: "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=13ee4eff24825f8ba8259842109cad9c",
+      url: "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=13ee4eff24825f8ba8259842109cad9c",
       type: "GET",
       dataType: "JSON",
 
