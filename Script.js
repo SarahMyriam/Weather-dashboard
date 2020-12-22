@@ -46,7 +46,7 @@ $(document).ready(function () {
           $("#current-date").append(card)
       
           getUVIndex(lat, lon);
-          getForecast(lat, lon);
+          getForecast(city);
       
       
         }
@@ -112,25 +112,30 @@ $(document).ready(function () {
   }
 
   //forecast api
-  function getForecast(lat, lon) {
+  function getForecast(city) {
+
     $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=13ee4eff24825f8ba8259842109cad9c",
+      url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=13ee4eff24825f8ba8259842109cad9c",
       type: "GET",
       dataType: "JSON",
 
-    }).then(function (response) {
-      console.log(response);
-      for (var i = 0; i < response.list.length; i+= 5) {
+      success:
+
+      function (response) {
+        $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
+        
+        for (var i = 0; i < 5; i++) {
     
-        console.log(response.list[i])
-        $(".row").append($("<div>").addClass("col-sm").text(response.list[i].main.temp));
+        var col = $("<div>").addClass("col-md-2") .text(response.list[i].main.temp);
+      
+        $("#forecast .row").append(col);
       }
-      console.log(response.list);
 
+    } 
 
-    })
+  })
 
-  }
+}
 
   //Create Li list
   function newList() {
